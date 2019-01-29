@@ -98,16 +98,16 @@
                                     <h4 class="headline">Оставить комментарий</h4>
 
                                     <!-- Comment Form -->
-                                    <form action="#" method="post">
+                                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                                         <div class="row">
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" id="contact-name" placeholder="Имя">
+                                                    <input type="text" name="name" class="form-control" id="contact-name" placeholder="Имя">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="email" class="form-control" id="contact-email" placeholder="Email">
+                                                    <input type="email" name="email" class="form-control" id="contact-email" placeholder="Email">
                                                 </div>
                                             </div>
                                             <div class="col-12">
