@@ -1,4 +1,12 @@
-<?php require_once 'config/config.php'?>
+<?php require_once 'config/config.php';
+$errors = null;
+if (!empty($_POST) && ($name = checkDataLength($_POST['name'])) && ($email = checkEmail($_POST['email']))){
+    $message = clearData($_POST['message']);
+
+}elseif (!empty($_POST)){
+    $errors = true;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +43,12 @@
                     <!-- Blog Posts Area -->
                     <div class="col-12 col-lg-8">
                         <div class="blog-posts-area">
-
+                            <?php if ($errors): ?>
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    Заполните поля правильно!
+                                </div>
+                            <?php endif; ?>
                             <!-- Post Details Area -->
                             <div class="single-post-details-area">
                                 <div class="post-thumbnail mb-30">
