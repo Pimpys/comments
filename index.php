@@ -76,38 +76,26 @@ if (!empty($_POST) && ($name = checkDataLength($_POST['name'])) && ($email = che
 
                             <!-- Comment Area Start -->
                             <div class="comment_area clearfix">
-                                <h4 class="headline">12 Комментариев</h4>
+                                <h4 class="headline"><?= count(getAllComments($pdo)) ?> Комментариев</h4>
 
                                 <ol>
                                     <!-- Single Comment Area -->
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-flex">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="img/avatar.png" >
+
+                                    <?php foreach (getAllComments($pdo) as $comment): ?>
+                                        <li class="single_comment_area">
+                                            <div class="comment-wrapper d-flex">
+                                                <!-- Comment Meta -->
+                                                <div class="comment-author">
+                                                    <img src="img/avatar.png" alt="">
+                                                </div>
+                                                <!-- Comment Content -->
+                                                <div class="comment-content">
+                                                    <h5><?= $comment->name ?></h5>
+                                                    <?= nl2br($comment->body) ?>
+                                                </div>
                                             </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <h5>Маким</h5>
-                                                <p>Классная книга</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                   
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-flex">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="img/avatar.png" alt="">
-                                            </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <h5>Ванька</h5>
-                                                <p>Супер книга</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    
+                                        </li>
+                                    <?php endforeach; ?>
                                 </ol>
                             </div>
 
