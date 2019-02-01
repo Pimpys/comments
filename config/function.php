@@ -16,7 +16,7 @@
  * @param string $string
  * @return string
  */
-function clearData(string $string)
+function clearData(string $string): string
 {
     return strip_tags(trim($string));
 }
@@ -46,4 +46,27 @@ function checkEmail(string $string)
         return false;
     }
     return $string;
+}
+
+/**
+ * @param PDO $pdo
+ * @return mixed
+ */
+function getAllComments(PDO $pdo)
+{
+    $sql = 'SELECT * FROM comment WHERE status = true';
+    $sth = $pdo->prepare($sql);
+    $sth->execute();
+    return $sth->fetchAll(PDO::FETCH_CLASS);
+}
+
+/**
+ * @param mixed $variable
+ */
+function dump($variable)
+{
+    echo '<pre>';
+        var_dump($variable);
+    echo '</pre>';
+    die;
 }
