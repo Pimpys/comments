@@ -1,8 +1,8 @@
 <?php require_once 'config/config.php';
 $errors = null;
+$success = null;
 if (!empty($_POST) && ($name = checkDataLength($_POST['name'])) && ($email = checkEmail($_POST['email']))){
-    $message = clearData($_POST['message']);
-
+    saveComment($pdo, $name, $email, clearData($_POST['message'])) ? $success = true : $errors = true;
 }elseif (!empty($_POST)){
     $errors = true;
 }
@@ -47,6 +47,12 @@ if (!empty($_POST) && ($name = checkDataLength($_POST['name'])) && ($email = che
                                 <div class="alert alert-danger alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     Заполните поля правильно!
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($success): ?>
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    Комментарий успешно добавлен
                                 </div>
                             <?php endif; ?>
                             <!-- Post Details Area -->
