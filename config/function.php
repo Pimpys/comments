@@ -60,6 +60,13 @@ function getAllComments(PDO $pdo)
     return $sth->fetchAll(PDO::FETCH_CLASS);
 }
 
+/**
+ * @param PDO $pdo
+ * @param $name
+ * @param $email
+ * @param $message
+ * @return bool
+ */
 function saveComment(PDO $pdo, $name, $email, $message)
 {
     $sql = "INSERT INTO comment (name, email, body, status) VALUES (?, ?, ?, ?)";
@@ -70,6 +77,31 @@ function saveComment(PDO $pdo, $name, $email, $message)
         $message,
         true
     ]);
+}
+
+/**
+ * @param PDO $pdo
+ * @param int $id
+ * @return array
+ */
+function findByID(PDO $pdo, int $id)
+{
+    $sql = 'SELECT * FROM comment WHERE id = ' . $id;
+    $sth = $pdo->prepare($sql);
+    $sth->execute();
+    return $sth->fetchAll(PDO::FETCH_CLASS);
+}
+
+/**
+ * @param PDO $pdo
+ * @param int $id
+ * @return bool
+ */
+function deleteComments(PDO $pdo, int $id)
+{
+    $sql = 'DELETE FROM comment WHERE id = ' . $id;
+    $sth = $pdo->prepare($sql);
+    return $sth->execute();
 }
 /**
  * @param mixed $variable

@@ -6,6 +6,10 @@ if (!empty($_POST) && ($name = checkDataLength($_POST['name'])) && ($email = che
 }elseif (!empty($_POST)){
     $errors = true;
 }
+if (!empty($id = (int) $_GET['delete']) && findByID($pdo, $id)){
+    deleteComments($pdo, $id);
+    header('Location: index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,6 +96,7 @@ if (!empty($_POST) && ($name = checkDataLength($_POST['name'])) && ($email = che
                                                 <div class="comment-content">
                                                     <h5><?= $comment->name ?></h5>
                                                     <?= nl2br($comment->body) ?>
+                                                    <hr><a href="index.php?delete=<?= $comment->id ?>">Удалить</a>
                                                 </div>
                                             </div>
                                         </li>
