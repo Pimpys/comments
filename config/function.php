@@ -27,8 +27,8 @@ function clearData(string $string): string
  */
 function checkDataLength(string $string)
 {
-    $string = strlen(clearData($string));
-    if (!empty($string) && $string <= 254){
+    $str = strlen(clearData($string));
+    if (!empty($str) && $str <= 254){
         return $string;
     }
     return false;
@@ -41,7 +41,7 @@ function checkDataLength(string $string)
 function checkEmail(string $string)
 {
     $pattern = "#^[-0-9a-z_\.]+@[0-9a-z_^\.]+\.[a-z]{2,6}$#i";
-    if (!preg_match($pattern, clearData($string)))
+    if (!preg_match($pattern, checkDataLength($string)))
     {
         return false;
     }
@@ -60,6 +60,17 @@ function getAllComments(PDO $pdo)
     return $sth->fetchAll(PDO::FETCH_CLASS);
 }
 
+function saveComment(PDO $pdo, $name, $email, $message)
+{
+    $sql = "INSERT INTO comment (name, email, body, status) VALUES (?, ?, ?, ?)";
+    $sth = $pdo->prepare($sql);
+    return $sth->execute([
+        $name,
+        $email,
+        $message,
+        true
+    ]);
+}
 /**
  * @param mixed $variable
  */
